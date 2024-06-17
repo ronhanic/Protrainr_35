@@ -1,0 +1,103 @@
+[versions]
+agp = "8.4.2"
+kotlin = "1.9.0"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+lifecycleRuntimeKtx = "2.8.2"
+activityCompose = "1.9.0"
+composeBom = "2024.06.00"
+hiltVersion= "2.51.1"
+kspVersion="1.8.10-1.0.9"
+roomCommon = "2.5.0"
+roomCommonVersion = "2.6.1"
+multidexVersion = "2.0.1"
+
+daggerInternalTesting="2.51.1"
+hiltPluginVersion ="2.51.1"
+mockitoCore="5.7.0"
+mockitoAndroid="5.3.1"
+roomKtx = "2.6.1"
+roomRuntimeAndroid = "2.7.0-alpha04"
+hiltAndroidVersion="2.51.1"
+hiltViewModel ="1.0.0"
+hiltNavigationFragment="1.2.0"
+hiltCompose="1.2.0"
+coreTesting ="2.2.0"
+hiltAndroidTesting = "2.51.1"
+hiltCompiler="2.51.1"
+runner = "1.5.2"
+core = "1.43.0"
+composeVersion="2.7.7"
+previewVersion="1.6.8"
+
+mockitoKotlin ="2.1.0"
+mockitoOrg="2.21.0"
+coreCoroutines="1.7.1"
+androidCoroutines="1.7.3"
+testCoroutines="1.7.3"
+androidTestRules = "1.5.0"
+androidtestCore="1.13.1"
+androidxTextExt ="1.1.5"
+baristaVer="4.2.0"
+composeUiTest="1.6.8"
+composeUiTestDebug="1.4.0"
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" ,version.ref = "previewVersion"}
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+#androidx-room-common = { group = "androidx.room", name = "room", version.ref = "roomCommon" }
+#androidx-room-runtime = {group="androidx.room:room-runtime", name="room-runtime",version.ref="roomCommon"}
+#androidx-room-compiler = {group="androidx.room:room-compiler", name="room-common",version.ref="roomCommon"}
+androidx-datastore-preferences = {group="androidx.datastore:datastore-preferences:1.0.0", name="datastore-preferences"}
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommonVersion" }
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidexVersion" }
+org-mockito-android = { group = "org.mockito.kotlin",name="mockito-kotlin", version.ref="mockitoAndroid"}
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
+com-google-dagger-hilt-lifecycle-viewmodel = { group = "com.google.dagger", name = "hilt-lifecycle-viewmodel", version.ref = "hiltViewModel" }
+hilt = {group="androidx.hilt", name="hilt-navigation-fragment",version.ref="hiltNavigationFragment"}
+hilt-android-test={group="com.google.dagger", name="hilt-android-testing", version.ref="hiltAndroidTesting"}
+hilt-compose={group="androidx.hilt", name="hilt-navigation-compose", version.ref="hiltCompose"}
+androidx-core-testing ={group="androidx.arch.core",name="core-testing", version.ref="coreTesting"}
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-test-core = { group = "androidx.core", name = "core", version.ref = "androidtestCore" }
+androidx-compose-navigation= { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeVersion" }
+mockito-kotlin= { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+mockito-org= { group = "org.mockito", name = "mockito-inline", version.ref = "mockitoOrg" }
+coreCoroutines= { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coreCoroutines" }
+androidCoroutines= { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "androidCoroutines" }
+testCoroutines= { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "testCoroutines" }
+#androidTestRules = {group ="androidx.test", name="rules", version="androidTestRules"}
+androidxTestExt = {group ="androidx.test.ext", name="junit", version="androidxTestExt"}
+
+baristas = {group ="com.adevinta.android", name="barista", version.ref="baristaVer"}
+
+androidxComposeUiTest = {group ="androidx.compose.ui", name="ui-test-junit4", version.ref="composeUiTest"}
+androidxComposeUiTestDebug = {group ="androidx.compose.ui", name="ui-test-mainfest", version.ref="composeUiTestDebug"}
+
+#androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+# Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
+#debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
+
+
+hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltVersion"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltVersion"}
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref ="kspVersion" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref ="hiltVersion" }
+
