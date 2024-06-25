@@ -136,6 +136,8 @@ dependencies {
     implementation(libs.hilt.android)
     annotationProcessor(libs.hilt.compiler)
 
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
 
     androidTestImplementation(libs.androidxComposeUiTest)
     //debugImplementation(libs.androidxComposeUiTestDebug)

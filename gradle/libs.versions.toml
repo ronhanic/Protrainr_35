@@ -43,6 +43,7 @@ androidxTextExt ="1.1.5"
 baristaVer="4.2.0"
 composeUiTest="1.6.8"
 composeUiTestDebug="1.4.0"
+retrofitVersion="2.11.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -95,6 +96,12 @@ androidxComposeUiTestDebug = {group ="androidx.compose.ui", name="ui-test-mainfe
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltVersion"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltVersion"}
+retrofit =  { group = "com.squareup.retrofit2", name = "retrofit" , version.ref = "retrofitVersion"}
+
+retrofit-converter =  { group = "com.squareup.retrofit2", name = "converter-gson" , version.ref = "retrofitVersion"}
+
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

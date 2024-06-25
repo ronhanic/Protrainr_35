@@ -27,6 +27,9 @@ import com.sixhundredwatts.protrainr.ui.theme.fabBackgroundColor
 import com.sixhundredwatts.protrainr.ui.theme.fabPlusColor
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -35,17 +38,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sixhundredwatts.protrainr.R
 import com.sixhundredwatts.protrainr.domain.entities.Playlist
+import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.coroutines.coroutineContext
 
 @Composable
 fun ListScreen(
+    viewModel:PlaylistViewModel,
     navigateToTasksScreen: (taskId: Int) -> Unit
 ) {
-    val itemsList = listOf(Playlist("0","Item 0","cat1",1),
-        Playlist("1","Item 1","cat1",2),
-        Playlist("2","Item 2","cat1",3),
-        Playlist("3","Item 3","cat1",4))
 
-        Scaffold (
+    //val itemList by viewModel.playlists.
+
+    val playlists by viewModel.playlists
+    Scaffold (
        topBar = {
           ListAppBar()
        },
@@ -53,8 +59,8 @@ fun ListScreen(
        content = { paddingValues->
 
            MyList(
-
-               dataList = itemsList,
+               viewModel = viewModel,
+               dataList = playlists,
                paddingValues = paddingValues,
 
                modifier = Modifier.testTag("listitem")
@@ -78,7 +84,9 @@ fun MyCard(
     ) {
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -90,7 +98,9 @@ fun MyCard(
 
             }
             Column(
-                modifier = Modifier.fillMaxWidth().padding(start = 20.dp,end = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 8.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -113,6 +123,7 @@ fun MyCard(
 
 @Composable
 fun MyList(
+    viewModel: PlaylistViewModel,
     dataList: List<Playlist>,
     paddingValues: PaddingValues,
     modifier:Modifier
@@ -124,6 +135,10 @@ fun MyList(
         items(dataList) {data->
             MyCard(data = data )
         }
+    }
+    DisposableEffect(Unit) {
+        viewModel.getPlaylists()
+        onDispose {}
     }
 }
 @Composable
@@ -143,8 +158,8 @@ fun ListFab(
             tint = Color.Blue)
     }
 }
-@Composable
-@Preview
-private fun ListScreenPreview() {
-    ListScreen(navigateToTasksScreen = {})
-}
+//@Composable
+//@Preview
+//private fun ListScreenPreview(viewModel: PlaylistViewModel) {
+//    ListScreen(viewModel,navigateToTasksScreen = {})
+//}

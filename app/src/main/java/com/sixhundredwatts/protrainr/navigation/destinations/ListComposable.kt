@@ -7,12 +7,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel
 
 import com.sixhundredwatts.protrainr.util.Constants.LIST_ARGUMENT_KEY
 import com.sixhundredwatts.protrainr.util.Constants.LIST_SCREEN
 import com.sixhundredwatts.todo.ui.screens.list.ListScreen
 
 fun NavGraphBuilder.listComposable(
+    viewModel: PlaylistViewModel,
     navigateToTasksScreen:(taskId:Int) -> Unit
 ) {
     composable(
@@ -20,7 +22,7 @@ fun NavGraphBuilder.listComposable(
         arguments = listOf(navArgument(LIST_ARGUMENT_KEY) {
                 type = NavType.StringType
         })) {
-             ListScreen(navigateToTasksScreen = navigateToTasksScreen)
+             ListScreen(viewModel,navigateToTasksScreen = navigateToTasksScreen)
        }
 
 }

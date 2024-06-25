@@ -7,9 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sixhundredwatts.protrainr.util.Constants.LIST_SCREEN
 import com.sixhundredwatts.protrainr.navigation.destinations.listComposable
+import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel
 
 @Composable
 fun SetupNavigation(
+    viewModel: PlaylistViewModel,
     navController: NavHostController
 ) {
     val screen = remember(navController) {
@@ -21,7 +23,7 @@ fun SetupNavigation(
         startDestination = LIST_SCREEN
     ) {
         composable("listScreen") {
-            listComposable(navigateToTasksScreen = screen.task)
+            listComposable(viewModel,navigateToTasksScreen = screen.task)
         }
      // taskComposable(navigateToListScreen = screen.list)
     }
