@@ -16,17 +16,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sixhundredwatts.protrainr.navigation.SetupNavigation
-import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel
+import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel2
 import com.sixhundredwatts.protrainr.ui.theme.ProtrainrTheme
+import com.sixhundredwatts.todo.ui.screens.list.ListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel: PlaylistViewModel by viewModels()
     private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
      //  val engine = Engine(2000,100,15,false)
@@ -34,17 +36,28 @@ class MainActivity : ComponentActivity() {
 
       // car.turnOn()
 
+
        super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
 
 
             ProtrainrTheme {
-                Surface( modifier=Modifier.fillMaxSize(),color= MaterialTheme.colorScheme.background) {
-                    MainActivityContent(viewModel)
-                }
+                App()
 
             }
+        }
+    }
+}
+
+@Composable
+fun App() {
+    val navController = rememberNavController()
+    NavHost (navController=navController, startDestination = "listscreen" ) {
+        composable(route="listscreen") { backstackentry->
+            val viewModel = hiltViewModel<PlaylistViewModel2>();
+            ListScreen(viewModel)
         }
     }
 }

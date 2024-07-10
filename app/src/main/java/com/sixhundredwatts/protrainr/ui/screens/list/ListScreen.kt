@@ -31,27 +31,48 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.HiltViewModelFactory
 import com.sixhundredwatts.protrainr.R
-import com.sixhundredwatts.protrainr.domain.entities.Playlist
-import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel
+
+
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.coroutines.coroutineContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.sixhundredwatts.protrainr.domain.entities.Playlist
+import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel2
+import com.sixhundredwatts.protrainr.playlists.Result
+import com.sixhundredwatts.protrainr.util.Constants
 
 @Composable
 fun ListScreen(
-    viewModel:PlaylistViewModel,
-    navigateToTasksScreen: (taskId: Int) -> Unit
+   viewModel:PlaylistViewModel2 = hiltViewModel()
 ) {
 
+
+
+   // val viewModel : PlaylistViewModel2 = hiltViewModel<PlaylistViewModel2>()
+    val playlistsResult by viewModel.playlists.collectAsState()
+
+    when (playlistsResult) {
+        is Result.Success -> {
+            val playlists = (playlistsResult as Result.Success<List<Playlist>>).data
+            PlaylistList(playlists)
+        }
+        is Result.Error -> {
+            val exception = (playlistsResult as Result.Error).exception
+            Text("Error: ${exception.message}")
+        }
+    }
     //val itemList by viewModel.playlists.
 
-    val playlists by viewModel.playlists
-    Scaffold (
+    /* Scaffold (
        topBar = {
           ListAppBar()
        },
@@ -71,16 +92,24 @@ fun ListScreen(
        floatingActionButton = {
          ListFab(navigateToTasksScreen = navigateToTasksScreen)
        }
-   )
+   )*/
 
 
 }
+
 @Composable
-fun MyCard(
-    data: Playlist,
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth()
+fun PlaylistList(playlists: List<Playlist>) {
+    LazyColumn {
+        items(playlists) { playlist ->
+            PlaylistItem(playlist)
+        }
+    }
+}
+@Composable
+fun PlaylistItem(playlist: Playlist) {
+
+   Card(
+   modifier = Modifier.fillMaxWidth()
     ) {
 
         Row(
@@ -104,12 +133,12 @@ fun MyCard(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = data.name,
+                    text = playlist.name,
                     style = TextStyle(color = Color.Black, fontSize = 20.sp),
                             modifier = Modifier.testTag("playlistitemname")
                 )
                 Text(
-                    text = data.category,
+                    text = playlist.category,
                     style = TextStyle(color = Color.Black, fontSize = 16.sp),
                     modifier = Modifier.testTag("playlistitemcategory")
                 )
@@ -119,45 +148,92 @@ fun MyCard(
 
 
     }
-}
 
-@Composable
-fun MyList(
-    viewModel: PlaylistViewModel,
-    dataList: List<Playlist>,
-    paddingValues: PaddingValues,
-    modifier:Modifier
-) {
-    LazyColumn(
-        modifier = modifier.padding(paddingValues)
-    ) {
 
-        items(dataList) {data->
-            MyCard(data = data )
-        }
-    }
-    DisposableEffect(Unit) {
-        viewModel.getPlaylists()
-        onDispose {}
-    }
 }
-@Composable
-fun ListFab(
-    navigateToTasksScreen: (taskId: Int) -> Unit
-) {
-    FloatingActionButton(
-        onClick = {
-            navigateToTasksScreen(-1)
-        },
-        containerColor = MaterialTheme.colorScheme.fabPlusColor,
-        contentColor = MaterialTheme.colorScheme.fabBackgroundColor
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "Add Button",
-            tint = Color.Blue)
-    }
-}
+//@Composable
+//fun MyCard(
+//    data: Playlist,
+//) {
+//    Card(
+//        modifier = Modifier.fillMaxWidth()
+//    ) {
+//
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(8.dp),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            Box(
+//                modifier = Modifier.height(80.dp)
+//            ) {
+//            Image(painter = painterResource(
+//                id = R.drawable.playlist),
+//                contentDescription ="Playlist Image" )
+//
+//            }
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(start = 20.dp, end = 8.dp),
+//                horizontalAlignment = Alignment.Start
+//            ) {
+//                Text(
+//                    text = data.name,
+//                    style = TextStyle(color = Color.Black, fontSize = 20.sp),
+//                            modifier = Modifier.testTag("playlistitemname")
+//                )
+//                Text(
+//                    text = data.category,
+//                    style = TextStyle(color = Color.Black, fontSize = 16.sp),
+//                    modifier = Modifier.testTag("playlistitemcategory")
+//                )
+//
+//            }
+//        }
+//
+//
+//    }
+//}
+//
+//@Composable
+//fun MyList(
+//    viewModel: PlaylistViewModel,
+//    dataList: List<Playlist>,
+//    paddingValues: PaddingValues,
+//    modifier:Modifier
+//) {
+//    LazyColumn(
+//        modifier = modifier.padding(paddingValues)
+//    ) {
+//
+//        items(dataList) {data->
+//            MyCard(data = data )
+//        }
+//    }
+//    DisposableEffect(Unit) {
+//        viewModel.getPlaylists()
+//        onDispose {}
+//    }
+//}
+//@Composable
+//fun ListFab(
+//    navigateToTasksScreen: (taskId: Int) -> Unit
+//) {
+//    FloatingActionButton(
+//        onClick = {
+//            navigateToTasksScreen(-1)
+//        },
+//        containerColor = MaterialTheme.colorScheme.fabPlusColor,
+//        contentColor = MaterialTheme.colorScheme.fabBackgroundColor
+//    ) {
+//        Icon(
+//            imageVector = Icons.Filled.Add,
+//            contentDescription = "Add Button",
+//            tint = Color.Blue)
+//    }
+//}
 //@Composable
 //@Preview
 //private fun ListScreenPreview(viewModel: PlaylistViewModel) {

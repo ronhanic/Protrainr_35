@@ -1,9 +1,16 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
+
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hiltAndroid) apply false
+
     alias(libs.plugins.jetbrains.kotlin.android)
 
-    alias(libs.plugins.hiltAndroid) apply false
+
     alias(libs.plugins.kotlinAndroidKsp) apply false
+    alias(libs.plugins.jetbrains.kotlin.kapt)
+
 
 }
 
@@ -17,7 +24,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        // multiDexEnabled = true
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -48,7 +55,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -71,10 +78,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
+    implementation(kotlin("stdlib", "1.9.24"))
+   implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
 
-    implementation(libs.androidx.material3)
-
+   implementation(libs.androidx.material3)
+    implementation(libs.hilt.compose)
 
 
     implementation(libs.androidx.room.common)
@@ -82,12 +93,19 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.runtime.livedata)
 
 
     androidTestImplementation(libs.androidx.runner)
 
-    //implementation(libs.com.google.dagger.hilt.lifecycle.viewmodel)
-    //  implementation(libs.hilt)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.hiltWork)
+
+    //rob implementation(libs.androidx.hilt.viewmodel)
+
+    //ron  annotationProcessor(libs.hilt.compiler)
+
+
     testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.core.testing)
 
@@ -96,9 +114,11 @@ dependencies {
 
     testImplementation(libs.hilt.android.test)
 
+   // annotationProcessor(libs.hilt.compiler)
     testImplementation(libs.androidx.core.testing)
 
 
+    //annotationProcessor(libs.hilt.android.compiler)
     //ksp(libs.hilt.compiler)
 
 
@@ -115,6 +135,7 @@ dependencies {
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.androidx.ui.test.junit4)
@@ -122,6 +143,7 @@ dependencies {
     testImplementation(libs.mockito.org)
     testImplementation(libs.mockito.kotlin)
 
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.coreCoroutines)
     implementation(libs.androidCoroutines)
     testImplementation(libs.testCoroutines)
@@ -130,11 +152,12 @@ dependencies {
  //  androidTestImplementation(libs.androidTestRules)
     androidTestImplementation(libs.androidxTestExt)
 
-
+   // implementation(libs.hilt)
+   //  implementation(libs.com.google.dagger.hilt.lifecycle.viewmodel)
 
     implementation(libs.androidx.multidex)
     implementation(libs.hilt.android)
-    annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
@@ -142,7 +165,18 @@ dependencies {
     androidTestImplementation(libs.androidxComposeUiTest)
     //debugImplementation(libs.androidxComposeUiTestDebug)
 
+    kapt(libs.hilt.android.compiler)
 
 
+}
+kapt {
+    correctErrorTypes = true
+}
 
+apply(plugin="dagger.hilt.android.plugin")
+
+tasks.withType<KotlinCompile> {
+    kotlin.ext {
+      version = "1.9.24"
+    }
 }
