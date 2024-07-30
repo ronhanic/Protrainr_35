@@ -47,7 +47,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.sixhundredwatts.protrainr.domain.entities.Playlist
 import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel2
-import com.sixhundredwatts.protrainr.playlists.Result
 import com.sixhundredwatts.protrainr.util.Constants
 
 @Composable
@@ -60,15 +59,19 @@ fun ListScreen(
    // val viewModel : PlaylistViewModel2 = hiltViewModel<PlaylistViewModel2>()
     val playlistsResult by viewModel.playlists.collectAsState()
 
+
     when (playlistsResult) {
-        is Result.Success -> {
-            val playlists = (playlistsResult as Result.Success<List<Playlist>>).data
+        is com.sixhundredwatts.protrainr.playlists.Result.Success -> {
+            val playlists = (playlistsResult as com.sixhundredwatts.protrainr.playlists.Result.Success<List<Playlist>>).data
             PlaylistList(playlists)
         }
-        is Result.Error -> {
-            val exception = (playlistsResult as Result.Error).exception
+        is com.sixhundredwatts.protrainr.playlists.Result.Error -> {
+            val exception = (playlistsResult as com.sixhundredwatts.protrainr.playlists.Result.Error).exception
             Text("Error: ${exception.message}")
         }
+
+      //  is com.sixhundredwatts.protrainr.playlists.Result.Error -> TODO()
+       // is com.sixhundredwatts.protrainr.playlists.Result.Success -> TODO()
     }
     //val itemList by viewModel.playlists.
 

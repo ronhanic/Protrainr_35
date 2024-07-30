@@ -78,7 +78,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
-    implementation(kotlin("stdlib", "1.9.24"))
+    //implementation(kotlin("stdlib", "1.9.24"))
+
    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

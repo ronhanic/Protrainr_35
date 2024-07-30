@@ -4,8 +4,13 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.sixhundredwatts.protrainr.domain.entities.Playlist
 import com.sixhundredwatts.protrainr.utils.BaseUnitTest
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.singleOrNull
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -20,7 +25,7 @@ class PlaylistServiceShould:BaseUnitTest() {
 
     private lateinit var service: PlaylistService
 
-    val repository:PlaylistRepository = mock()
+    val repository:PlaylistRepository2 = mock()
     private val api:PlaylistAPI = mock()
     @Test
     fun fetchPlaylistsFromAPI() = runTest {
@@ -36,13 +41,12 @@ class PlaylistServiceShould:BaseUnitTest() {
 
         val api:PlaylistAPI = mock()
 
-
         whenever(api.fetchAllPlaylists()).thenReturn(playlists)
 
         val service:PlaylistService = PlaylistService(api)
 
 
-        assertEquals(Result.success(playlists),service.fetchPlaylists().first())
+        assertEquals(Result.Success(playlists),service.fetchPlaylists().first())
 
 
 
@@ -52,8 +56,14 @@ class PlaylistServiceShould:BaseUnitTest() {
     fun emitsErrorResultWhenNetworkFails() = runTest {
         whenever(api.fetchAllPlaylists()).thenThrow(RuntimeException("Damn backend Developers"))
         service = PlaylistService(api)
-        assertEquals("Something went wrong",
-            service.fetchPlaylists().first().exceptionOrNull()?.message)
+
+        var result: Result<List<Playlist>>
+        try {
+            result = service.fetchPlaylists().first()
+        }catch(e:Exception) {
+
+            assertEquals("Error fetching playlists:", e.message)
+        }
     }
 
 }

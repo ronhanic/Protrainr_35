@@ -5,15 +5,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import com.sixhundredwatts.protrainr.playlists.Result
+import com.sixhundredwatts.protrainr.playlists.Result.*
+import kotlinx.coroutines.flow.FlowCollector
+
 class PlaylistService(
     private val api:PlaylistAPI
 ) {
     suspend fun fetchPlaylists() : Flow<Result<List<Playlist>>>  {
 
         return flow {
-            emit(Result.Success(api.fetchAllPlaylists()))
-        }.catch {
-          // emit(Result.Error(Exception("Something went wrong")))
+            emit(Success(api.fetchAllPlaylists()))
+        }.catch { e->
+
+            throw RuntimeException("Error fetching playlists:")
+
+
         }
     }
 

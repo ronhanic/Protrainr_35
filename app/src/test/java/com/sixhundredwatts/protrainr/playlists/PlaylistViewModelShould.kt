@@ -4,6 +4,7 @@ import com.sixhundredwatts.protrainr.domain.entities.Playlist
 import com.sixhundredwatts.protrainr.utils.BaseUnitTest
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flow
+
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -17,39 +18,46 @@ class PlaylistViewModelShould : BaseUnitTest() {
 
 
 
-    private val repository: PlaylistRepository = mock()
+    private val repository: PlaylistRepository2 = mock()
     private val playlist = mock<List<Playlist>>()
-    private val expected = Result.success(playlist)
-    private val exception = RuntimeException("Something went wrong")
+    private val expected = Result.Success(playlist)
+    private val exception = Result.Error(Exception("Something went wrong"))
     @Test
     fun getPlaylistsFromRepository() = runTest {
         mockSuccessCase()
-        val viewModel = PlaylistViewModel(repository)
-       viewModel.playlists.getValueForTest()
+        val viewModel = PlaylistViewModel2(repository)
+
        verify(repository,times(1)).getPlaylists()
 
 
     }
 
-    @Test
+     @Test
     fun emitErrorWhenReceiveError() {
         runBlocking {
             whenever(repository.getPlaylists()).thenReturn(
                 flow {
-                    emit(Result.failure<List<Playlist>> (exception))
+
+                    emit(exception)
+
                 }
             )
         }
-        val viewModel = PlaylistViewModel(repository)
-        assertEquals(exception, viewModel.playlists.getValueForTest()!!.exceptionOrNull())
+        val viewModel = PlaylistViewModel2(repository)
+        assertEquals(exception, viewModel.playlists.value)
     }
+
+
+
     @Test
     fun emitsPlaylistFromRepository() = runTest{
 
         mockSuccessCase()
-        val viewModel = PlaylistViewModel(repository)
-        assertEquals(expected, viewModel.playlists.getValueForTest())
+        val viewModel = PlaylistViewModel2(repository)
+        assertEquals(expected, viewModel.playlists.value)
     }
+
+
 
     private fun mockSuccessCase() {
         runBlocking {
@@ -63,14 +71,6 @@ class PlaylistViewModelShould : BaseUnitTest() {
     }
 
 
-    private fun mockFailureCase() {
-        runBlocking {
 
-            whenever(repository.getPlaylists()).thenReturn(
-                flow {
-                    emit(expected)
-                }
-            )
-        }
-    }
+
 }
