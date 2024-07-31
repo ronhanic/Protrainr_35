@@ -38,7 +38,8 @@ class PlaylistViewModelShould : BaseUnitTest() {
             whenever(repository.getPlaylists()).thenReturn(
                 flow {
 
-                    emit(exception)
+                    Result.Error(Exception("x"))
+                    //emit(exception)
 
                 }
             )

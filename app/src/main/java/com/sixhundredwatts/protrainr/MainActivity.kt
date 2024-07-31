@@ -44,22 +44,23 @@ class MainActivity : ComponentActivity() {
 
 
             ProtrainrTheme {
-                App()
+                //App()
 
+                MainActivityContent()
             }
-        }
-    }
+        }    }
 }
 
 @Composable
 fun App() {
-    val navController = rememberNavController()
-    NavHost (navController=navController, startDestination = "listscreen" ) {
-        composable(route="listscreen") { backstackentry->
-            val viewModel = hiltViewModel<PlaylistViewModel2>();
-            ListScreen(viewModel)
-        }
-    }
+    MainActivityContent()
+//    val navController = rememberNavController()
+//    NavHost (navController=navController, startDestination = "listscreen" ) {
+//        composable(route="listscreen") { backstackentry->
+//            val viewModel = hiltViewModel<PlaylistViewModel2>();
+//            ListScreen(viewModel)
+//        }
+//    }
 }
 
 

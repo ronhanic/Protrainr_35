@@ -95,6 +95,7 @@ dependencies {
 
     implementation(libs.androidx.compose.navigation)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.junit.ktx)
 
 
     androidTestImplementation(libs.androidx.runner)

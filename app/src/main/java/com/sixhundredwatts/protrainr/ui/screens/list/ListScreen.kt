@@ -54,8 +54,6 @@ fun ListScreen(
    viewModel:PlaylistViewModel2 = hiltViewModel()
 ) {
 
-
-
    // val viewModel : PlaylistViewModel2 = hiltViewModel<PlaylistViewModel2>()
     val playlistsResult by viewModel.playlists.collectAsState()
 
@@ -69,9 +67,6 @@ fun ListScreen(
             val exception = (playlistsResult as com.sixhundredwatts.protrainr.playlists.Result.Error).exception
             Text("Error: ${exception.message}")
         }
-
-      //  is com.sixhundredwatts.protrainr.playlists.Result.Error -> TODO()
-       // is com.sixhundredwatts.protrainr.playlists.Result.Success -> TODO()
     }
     //val itemList by viewModel.playlists.
 

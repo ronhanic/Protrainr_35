@@ -13,7 +13,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.sixhundredwatts.protrainr.domain.entities.Playlist
-import com.sixhundredwatts.todo.ui.screens.list.MyList
+
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
@@ -52,7 +52,7 @@ class PlaylistFeature {
 
         composeTestRule.setContent {
             val paddingValues = PaddingValues(10.dp)
-            val myList = MyList(dataList = dataList, paddingValues,modifier = Modifier.padding(all = 10.dp))
+            val myList = Playlist(id="id",name="Item", category="cat",image=1)
         }
 
         // Verify each item is displayed

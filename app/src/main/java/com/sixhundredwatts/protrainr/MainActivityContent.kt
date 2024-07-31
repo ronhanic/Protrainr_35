@@ -1,6 +1,7 @@
 package com.sixhundredwatts.protrainr
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,13 +17,11 @@ fun MainActivityContent() {
 
 
     val navController = rememberNavController()
-    NavHost(navController, startDestination="listScreen") {
-        composable("listScreen") {
-
-
-            ListScreen ()
-
-
+    NavHost (navController=navController, startDestination = "listscreen" ) {
+        composable(route="listscreen") { backstackentry->
+            val viewModel = hiltViewModel<PlaylistViewModel2>();
+            ListScreen(viewModel)
         }
     }
+
 }
