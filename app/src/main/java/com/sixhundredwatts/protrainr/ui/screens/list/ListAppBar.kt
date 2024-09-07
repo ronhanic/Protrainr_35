@@ -20,12 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.sixhundredwatts.protrainr.ui.theme.toAppBarContentColor
 import com.sixhundredwatts.protrainr.R
 import kotlin.coroutines.coroutineContext
 
 @Composable
 fun ListAppBar() {
+
     DefaultListAppBar(
         onSearchClicked = {}
     )
@@ -57,9 +59,11 @@ fun ListAppBarActions(
 ) {
    SearchAction(onSearchClicked = onSearchClicked)
 }
+
+
 @Composable
 fun SearchAction(
-    onSearchClicked: () -> Unit,
+    onSearchClicked: () -> Unit
 ) {
    IconButton(onClick = { onSearchClicked() }) {
        Icon(

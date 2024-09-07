@@ -38,13 +38,15 @@ class PlaylistViewModelShould : BaseUnitTest() {
             whenever(repository.getPlaylists()).thenReturn(
                 flow {
 
-                    Result.Error(Exception("x"))
-                    //emit(exception)
+                    emit(exception)
 
                 }
             )
         }
         val viewModel = PlaylistViewModel2(repository)
+
+
+
         assertEquals(exception, viewModel.playlists.value)
     }
 

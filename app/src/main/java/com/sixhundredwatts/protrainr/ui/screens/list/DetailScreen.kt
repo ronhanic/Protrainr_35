@@ -50,7 +50,7 @@ import com.sixhundredwatts.protrainr.playlists.PlaylistViewModel2
 import com.sixhundredwatts.protrainr.util.Constants
 
 @Composable
-fun ListScreen(
+fun DetailScreen(
    viewModel:PlaylistViewModel2 = hiltViewModel(),
    navController: NavController
 ) {
@@ -62,28 +62,7 @@ fun ListScreen(
     when (playlistsResult) {
         is com.sixhundredwatts.protrainr.playlists.Result.Success -> {
             val playlists = (playlistsResult as com.sixhundredwatts.protrainr.playlists.Result.Success<List<Playlist>>).data
-
-            Scaffold (
-                topBar = {
-                    ListAppBar()
-                },
-                floatingActionButton = {
-                  ListFab(navController)
-                },
-                content = { paddingValues->
-
-                    PlaylistList(playlists, paddingValues)
-
-                }
-
-            )
-
-               // floatingActionButton = {
-                   // ListFab(navigateToTasksScreen = navigateToTasksScreen)
-               // }
-     //   }
-
-
+            DetailList(playlists)
         }
         is com.sixhundredwatts.protrainr.playlists.Result.Error -> {
             val exception = (playlistsResult as com.sixhundredwatts.protrainr.playlists.Result.Error).exception
@@ -118,17 +97,15 @@ fun ListScreen(
 }
 
 @Composable
-fun PlaylistList(playlists: List<Playlist>,paddingValues: PaddingValues) {
-
+fun DetailList(playlists: List<Playlist>) {
     LazyColumn {
-
         items(playlists) { playlist ->
-            PlaylistItem(playlist)
+            DetailListItem(playlist)
         }
     }
 }
 @Composable
-fun PlaylistItem(playlist: Playlist) {
+fun DetailListItem(playlist: Playlist) {
 
    Card(
    modifier = Modifier.fillMaxWidth()
@@ -145,7 +122,7 @@ fun PlaylistItem(playlist: Playlist) {
             ) {
             Image(painter = painterResource(
                 id = R.drawable.playlist),
-                contentDescription ="Playlist Image" )
+                contentDescription ="DetailList Image" )
 
             }
             Column(
@@ -157,12 +134,12 @@ fun PlaylistItem(playlist: Playlist) {
                 Text(
                     text = playlist.name,
                     style = TextStyle(color = Color.Black, fontSize = 20.sp),
-                            modifier = Modifier.testTag("playlistitemname")
+                            modifier = Modifier.testTag("detaillistitemname")
                 )
                 Text(
                     text = playlist.category,
                     style = TextStyle(color = Color.Black, fontSize = 16.sp),
-                    modifier = Modifier.testTag("playlistitemcategory")
+                    modifier = Modifier.testTag("detaillistitemcategory")
                 )
 
             }
@@ -239,25 +216,23 @@ fun PlaylistItem(playlist: Playlist) {
 //        onDispose {}
 //    }
 //}
-@Composable
-fun ListFab(navController: NavController
-    //navigateToTasksScreen: (taskId: Int) -> Unit
-) {
-    FloatingActionButton(
-        onClick = {
-
-            navController.navigate("detailscreen")
-           // navigateToTasksScreen(-1)
-        },
-        containerColor = MaterialTheme.colorScheme.fabPlusColor,
-        contentColor = MaterialTheme.colorScheme.fabBackgroundColor
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "Add Button",
-            tint = Color.Blue)
-    }
-}
+//@Composable
+//fun ListFab(
+//    navigateToTasksScreen: (taskId: Int) -> Unit
+//) {
+//    FloatingActionButton(
+//        onClick = {
+//            navigateToTasksScreen(-1)
+//        },
+//        containerColor = MaterialTheme.colorScheme.fabPlusColor,
+//        contentColor = MaterialTheme.colorScheme.fabBackgroundColor
+//    ) {
+//        Icon(
+//            imageVector = Icons.Filled.Add,
+//            contentDescription = "Add Button",
+//            tint = Color.Blue)
+//    }
+//}
 //@Composable
 //@Preview
 //private fun ListScreenPreview(viewModel: PlaylistViewModel) {

@@ -1,5 +1,6 @@
 package com.sixhundredwatts.protrainr.playlists
 
+import android.util.Log
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.sixhundredwatts.protrainr.domain.entities.Playlist
@@ -28,6 +29,8 @@ class PlaylistRepositoryShould :BaseUnitTest() {
     @Test
     fun emitPlaylistsFromService() = runTest {
         val repository = mockSuccessfulCase()
+       
+
         assertEquals(Result.Success(playlists),repository.getPlaylists().first())
     }
 

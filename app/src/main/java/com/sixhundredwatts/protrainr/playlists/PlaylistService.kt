@@ -17,8 +17,8 @@ class PlaylistService(
             emit(Success(api.fetchAllPlaylists()))
         }.catch { e->
 
-            //emit(Error(Exception("Error fetching playlists:"))
-            throw RuntimeException("Error fetching playlists:")
+           // emit(Exception("Error fetching playlists:"))
+            throw Exception("Error fetching playlists:")
 
 
         }
