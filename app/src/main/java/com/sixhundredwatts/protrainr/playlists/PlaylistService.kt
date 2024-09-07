@@ -11,14 +11,17 @@ import kotlinx.coroutines.flow.FlowCollector
 class PlaylistService(
     private val api:PlaylistAPI
 ) {
+
+
     suspend fun fetchPlaylists() : Flow<Result<List<Playlist>>>  {
 
         return flow {
             emit(Success(api.fetchAllPlaylists()))
         }.catch { e->
 
-           // emit(Exception("Error fetching playlists:"))
-            throw Exception("Error fetching playlists:")
+
+           //  Result.Error(Exception(e.message))
+            throw e ;Exception("Error fetching playlists:")
 
 
         }

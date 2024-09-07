@@ -33,6 +33,7 @@ class PlaylistViewModel2 @Inject constructor(
                     _playlists.value = result
                 }
             } catch (e: Exception) {
+
                 // Handle the exception, e.g., log it or update the UI state
                 //Log.e("fetchPlaylists", "Error fetching playlists", e)
                 // You might also want to update a LiveData to notify the UI about the error

@@ -62,7 +62,7 @@ class PlaylistServiceShould:BaseUnitTest() {
             result = service.fetchPlaylists().first()
         }catch(e:Exception) {
 
-            assertEquals("Error fetching playlists:", e.message)
+            assertEquals("Damn backend Developers", e.message)
         }
     }
 
